@@ -1,7 +1,5 @@
 Following contents comes from http://www.arduino.cn/thread-1038-1-1.html
 
-In this part, The servo would rotate from 0 degree to 180 degree then back to 0 degree :)
-
 普通舵机有3根线：GND（黑）、VCC（红）、Signal（黄）
 
 servo类下有以下成员函数:
@@ -12,7 +10,7 @@ read()//读上一次舵机转动角度
 attached()//
 detach()//断开舵机连接
 
-
+实验一，简单的转动
 #include <Servo.h> 
 Servo myservo;  //创建一个舵机控制对象
                 // 使用Servo类最多可以控制8个舵机
@@ -35,4 +33,27 @@ void loop()
     myservo.write(pos);         // 指定舵机转向的角度 
     delay(15);                  // 等待15ms让舵机到达指定位置 
   } 
+}
+
+
+
+实验二： 用一个变阻器去控制舵机
+#include <Servo.h> 
+
+Servo myservo;   //创建一个舵机控制对象  
+
+int potpin = 0;  //该变量用于存储用电位器读出的模拟值
+int val;         // 该变量用与存储舵机角度位置  
+
+void setup() 
+{ 
+  myservo.attach(9);  // 该舵机由arduino第九脚控制  
+} 
+
+void loop() 
+{ 
+  val = analogRead(potpin);            //读取电位器控制的模拟值 (范围在0-1023) 
+  val = map(val, 0, 1023, 0, 179);     // scale it to use it with the servo (value between 0 and 180) 这里涉及到一个map函数
+  myservo.write(val);                  // 指定舵机转向的角度  
+  delay(15);                           // 等待15ms让舵机到达指定位置   
 }
