@@ -57,3 +57,5 @@ void loop()
   myservo.write(val);                  // 指定舵机转向的角度  
   delay(15);                           // 等待15ms让舵机到达指定位置   
 }
+
+further infromation, refer to http://www.arduino.cn/thread-45-1-1.html
